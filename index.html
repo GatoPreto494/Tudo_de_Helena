@@ -763,7 +763,7 @@
 
       <p>Escolha os itens para sua comemoração e envie seu orçamento de forma prática pelo WhatsApp.</p>
 
-      <a class="whatsapp" href="#pegue">
+      <a class="whatsapp" href="#" onclick="irParaOrcamento(event)">
         Começar orçamento
       </a>
     </div>
@@ -1138,6 +1138,22 @@
     let pedido = [];
     let audioContext;
 
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    window.addEventListener("load", function() {
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto"
+      });
+    });
+
     const ordemCategorias = {
       pegue: {
         proxima: "mesa",
@@ -1156,6 +1172,19 @@
         texto: "Item adicionado. Indo para Adicionais."
       }
     };
+
+    function irParaOrcamento(event) {
+      event.preventDefault();
+
+      const destino = document.getElementById("pegue");
+
+      if (destino) {
+        destino.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }
 
     function tocarSomClique() {
       try {
